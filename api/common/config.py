@@ -8,7 +8,7 @@ class ProductionConfig(Config):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    MDB_URL = 'mongodb://localhost:27017/'
+    MDB_URL = 'mongodb://192.168.33.10:27017/'
     MDB = 'movie'
 
 class TestingConfig(Config):

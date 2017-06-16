@@ -53,7 +53,8 @@ index_soup = BeautifulSoup(index_text,'html5lib')
 menu_tags = index_soup.select('.menutv li a')
 
 nums = 0
-def print_homepage(homepage,home_url):
+def print_homepage(threadName,homepage,home_url):
+    logger.info('开始线程:%s'%threadName)
     tag_homepage = (home_url,homepage)
     page = tag_homepage[0]
     r_page = requests.get(page)
@@ -69,11 +70,11 @@ def print_homepage(homepage,home_url):
             url = page+'index.html'
         else:
             url = page+'index_%s.html' %(i)
-        logger.info('读取:%s'%(str(url)))
+        logger.info('线程%s读取:%s'%(threadName,str(url)))
         try:
             r_movie_page = requests.get(url,timeout=1)
         except:
-            logger.info('读取:%s超时'%(str(url)))
+            logger.info('线程%s读取:%s超时'%(threadName,str(url)))
             continue
         movie_page_soup = BeautifulSoup(r_movie_page.content,'html5lib')
         movie_tags = movie_page_soup.select('.listInfo a')
@@ -89,7 +90,7 @@ def print_homepage(homepage,home_url):
             md5obj.update(movie_title.encode('utf-8').strip())
             movie_hash = md5obj.hexdigest()
             if movie_collection.find_one({'hash':movie_hash}):
-                logger.info('跳过一个重复记录')
+                logger.info('线程%s跳过一个重复记录'%threadName)
                 continue
             movie['hash'] = movie_hash
             movie_home_url = movie_tag['href']
@@ -115,7 +116,7 @@ def print_homepage(homepage,home_url):
                     movie_download_url.append(a['href'])
             movie['download_url'] = movie_download_url
                 
-            logger.info('插入一个新记录')
+            logger.info('线程%s插入一个新记录'%threadName)
             movie_collection.insert_one(movie)
             global nums
             nums = nums+1
@@ -124,14 +125,18 @@ tag_homepages = [] #主页数组
 del menu_tags[0]
 for key,menu in enumerate(menu_tags):
     tag_homepages.append((menu['href'],menu.string))
-    print_homepage(menu.string,menu['href'])
+    try:
+        thread.start_new_thread(print_homepage,(key,menu.string,menu['href']))
+    except:
+        print '执行线程%s失败'%menu.string
 
 
 
 end_time = time.time()
 logger.info('耗时%s,抓取%s条记录' %(end_time-start_time,nums))
 
-
+while 1:
+    pass
 
                 
 
