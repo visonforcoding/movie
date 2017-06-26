@@ -1,0 +1,6 @@
+2017-06-17 10:26:12,678 - root.error - ERROR - 线程11读取:http://www.66ys.tv/dsj3/index_4.html超时
+2017-06-17 10:26:12,886 - root.error - ERROR - 线程5读取:http://www.66ys.tv/zhanzhengpian/index_3.html超时
+2017-06-17 10:26:12,886 - root.error - ERROR - 线程8读取:http://www.66ys.tv/3ddy/index_5.html超时
+2017-06-17 10:26:13,189 - root.error - ERROR - 线程10读取:http://www.66ys.tv/dsj2/index_6.html超时
+2017-06-17 10:26:16,322 - root.error - ERROR - 线程7读取:http://www.66ys.tv/bd/index_6.html超时
+2017-06-17 10:26:21,849 - root.error - ERROR - 线程13读取:http://www.66ys.tv/gy/index_10.html超时

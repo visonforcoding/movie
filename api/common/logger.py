@@ -16,7 +16,7 @@ logging_config = dict(
         'file': {
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'formatter': 'f',
-            'level': logging.DEBUG,
+            'level': logging.INFO,
             'filename':log_dir+'/log.log' 
         }
     },
@@ -25,9 +25,9 @@ logging_config = dict(
             'handlers': ['console'],
             'level': logging.DEBUG
         },
-        'error': {
+        'root.file': {
             'handlers': ['file'],
-            'level': logging.ERROR
+            'level': logging.DEBUG
         }
     }
 )
