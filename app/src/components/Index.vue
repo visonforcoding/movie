@@ -1,10 +1,15 @@
 <template>
-    <el-row type="flex" justify="center">
-        <el-col :span="11">
-            <el-input v-model="input" @keyup.native.enter="handSearch" placeholder="请输入内容">
-            </el-input>
-        </el-col>
-    </el-row>
+    <div>
+        <el-row>
+            <img style="width:400px;" src="../assets/logo.jpg">
+        </el-row>
+        <el-row type="flex" justify="center">
+            <el-col :span="11">
+                <el-input v-model="input" @keyup.native.enter="handSearch" placeholder="请输入内容">
+                </el-input>
+            </el-col>
+        </el-row>
+    </div>
 </template>
 
 

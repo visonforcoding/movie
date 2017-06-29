@@ -1,14 +1,16 @@
 <template>
     <el-row id="movie-list" type="flex" justify="center" v-loading="loading" element-loading-text="拼命加载中">
         <el-col :span="20">
+            <a v-link="{path:'detail',params:{query:'test'}}">
             <div v-for="movie in movies" :key="movie" class="text item">
                 <div class="title">
-                    <el-col :span="5">{{'列表内容 ' + movie.title }}</el-col>
+                    <el-col :span="5">{{movie.title }}</el-col>
                     <span class="tags">
                         <el-tag v-for="tag in movie.tag" :key="tag">{{tag}}</el-tag>
                     </span>
                 </div>
             </div>
+            </a>
         </el-col>
     </el-row>
 </template>
