@@ -21,7 +21,7 @@ export default new Router({
     {
       path: '/detail/:query',
       name: 'detail',
-      component:Detail
+      component: Detail
     }
   ]
 })
