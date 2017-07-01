@@ -46,7 +46,6 @@ menu_tags = index_soup.select('.menutv li a')
 
 nums = 0
 thread_nums = 0
-global total_speed_time = 0
 
 def start_scrapy(threadName, homepage, home_url):
     logger.info('开始线程:%s' % threadName)
@@ -125,7 +124,6 @@ def start_scrapy(threadName, homepage, home_url):
     logger.info('线程%s执行时间' % speed_time)
     global thread_nums
     thread_nums -= 1
-    total_speed_time +-speed_time
     
 
 
