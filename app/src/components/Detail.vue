@@ -1,53 +1,108 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank">Forum</a></li>
-      <li><a href="https://gitter.im/vuejs/vue" target="_blank">Gitter Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank">Twitter</a></li>
-      <br>
-      <li><a href="http://vuejs-templates.github.io/webpack/" target="_blank">Docs for This Template</a></li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li><a href="http://router.vuejs.org/" target="_blank">vue-router</a></li>
-      <li><a href="http://vuex.vuejs.org/" target="_blank">vuex</a></li>
-      <li><a href="http://vue-loader.vuejs.org/" target="_blank">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank">awesome-vue</a></li>
-    </ul>
+  <div>
+    <el-row id="movie-title">
+      <el-col :offset="2">
+        <h3>{{movie.title}}</h3>
+      </el-col>
+    </el-row>
+    <div v-loading="loading" element-loading-text="拼命加载中.." v-if="movie.db_match">
+      <el-row>
+        <el-col :span="2" :offset="2" v-if="movie.images.large">
+          <img style="width:200px;" v-bind:src="movie.images.large"></img>
+        </el-col>
+        <el-col :span="7" :offset="1">
+          <ul class="movie-prop-list">
+            <li>
+              导演:
+              <a v-for="director in movie.directors" :key="director">{{director.name}}</a>
+            </li>
+            <li>
+              剧情:
+              <a v-for="genre in movie.genres" :key="genre">{{genre}} </a>
+            </li>
+            <li>
+              主演:
+              <a :href="cast.alt" v-for="cast in movie.casts" :key="cast">{{cast.name}} </a>
+            </li>
+            <li>
+              豆瓣评分:
+              <el-rate v-model="movie.rating.average" disabled show-text text-color="#ff9900" text-template="{value}">
+              </el-rate>
+            </li>
+            <li>
+              年份: {{movie.year}}
+            </li>
+            <li>
+              下载地址:
+               <el-tag style="margin-top:5px" v-for="download_url in movie.download_url" :key="download_url">{{download_url}}</el-tag>
+            </li>
+          </ul>
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
+<style>
+#movie-title {
+  text-align: left;
+}
+
+.movie-prop-list {
+  list-style-type: none;
+  text-align: left;
+}
+</style>
 
 <script>
 export default {
-  name: 'hello',
-  data () {
+  data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      loading: false,
+      movie: {
+        images: { large: null },
+        year: null,
+        directors: null, rating: { average: 0 }
+      },
+      movie_cover: false,
+      value4: 3.7
+    }
+  },
+  created() {
+    // 组件创建完后获取数据，
+    // 此时 data 已经被 observed 了
+    this.fetchData()
+  },
+  watch: {
+    // 如果路由有变化，会再次执行该方法
+    '$route': 'routeChange'
+  },
+  methods: {
+    routeChange(r) {
+      console.log('t');
+    },
+    fetchData() {
+      this.error = this.post = null
+      this.loading = true
+      var self = this;
+      setTimeout(function () {
+        self.$http.get('http://127.0.0.1:5000/detail/' + self.$route.params.query).then(function (res) {
+          if (res) {
+            var res_obj = null;
+            res_obj = res.body.data;
+            if (res_obj.hasOwnProperty('db_match')) {
+              res_obj['db_subject']['download_url'] = res_obj['download_url'];
+              self.movie = res_obj['db_subject'];
+              self.movie['db_match'] = true;
+              self.movie_cover = self.movie['images']['large'];
+            } else {
+              self.movie = res_obj;
+            }
+          }
+        });
+        self.loading = false;
+      }, 1000);
+
     }
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-
-a {
-  color: #42b983;
-}
-</style>

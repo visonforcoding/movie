@@ -7,6 +7,7 @@ import re
 import sys
 import threading
 import time
+from datetime import datetime
 
 import requests
 from bs4 import BeautifulSoup
@@ -45,10 +46,11 @@ menu_tags = index_soup.select('.menutv li a')
 
 nums = 0
 thread_nums = 0
-
+global total_speed_time = 0
 
 def start_scrapy(threadName, homepage, home_url):
     logger.info('开始线程:%s' % threadName)
+    thread_start_time = time.time()
     tag_homepage = (home_url, homepage)
     page = tag_homepage[0]
     r_page = requests.get(page)
@@ -111,28 +113,37 @@ def start_scrapy(threadName, homepage, home_url):
                 else:
                     movie_download_url.append(a['href'])
             movie['download_url'] = movie_download_url
+            movie['create_time'] = datetime.now()
 
             logger.debug('线程%s插入一个新记录' % threadName)
             movie_collection.insert_one(movie)
             global nums
             nums = nums + 1
     logger.info('线程%s执行完毕' % threadName)
+    thread_end_time = time.time()
+    speed_time = thread_end_time - thread_start_time
+    logger.info('线程%s执行时间' % speed_time)
     global thread_nums
     thread_nums -= 1
+    total_speed_time +-speed_time
+    
 
 
 tag_homepages = []  # 主页数组
 del menu_tags[0]
+thread_list = []
 for key, menu in enumerate(menu_tags):
     tag_homepages.append((menu['href'], menu.string))
     try:
         t = threading.Thread(target=start_scrapy, args=(
             key, menu.string, menu['href']))
         t.start()
+        thread_list.append(t)
         thread_nums += 1
     except:
         print '执行线程%s失败' % menu.string.decode('utf-8')
 
+    
+# end_time = time.time()
+# logger.info('耗时%s,抓取%s条记录' % (end_time - start_time, nums))
 
-end_time = time.time()
-logger.info('耗时%s,抓取%s条记录' % (end_time - start_time, nums))

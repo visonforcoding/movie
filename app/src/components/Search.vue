@@ -2,7 +2,7 @@
     <el-row id="movie-list" type="flex" justify="center" v-loading="loading" element-loading-text="拼命加载中">
         <el-col :span="20">
             <div v-for="movie in movies" :key="movie" class="text item">
-                <router-link v-bind:to="{name:'detail',params:{ query:movie.title}}">
+                <router-link v-bind:to="{name:'detail',params:{ query:movie.hash}}">
                     <div class="title">
                         <el-col :span="5">{{movie.title }}</el-col>
                         <span class="tags">

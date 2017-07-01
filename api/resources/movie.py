@@ -8,7 +8,7 @@ class Movie(Resource):
     def get(self, query):
         mongo = base.Mongo.getInstance()
         nosql = {'title': {'$regex': '^%s' % query}}
-        fields = {'_id': 0, 'scrapy_site': 0, 'scrapy_url': 0, 'hash': 0}
+        fields = {'_id': 0, 'scrapy_site': 0, 'scrapy_url': 0}
         res = {'ret': 0, 'data': None}
         cursor = mongo.mdb.movie.find(nosql, fields).limit(10)
         movies = []
