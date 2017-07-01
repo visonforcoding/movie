@@ -12,7 +12,7 @@ class Detail(Resource):
     def get(self, query):
         mongo = base.Mongo.getInstance()
         nosql = {'hash': query}
-        fields = {'scrapy_site': 0, 'scrapy_url': 0}
+        fields = {'scrapy_site': 0, 'scrapy_url': 0,'create_time':0}
         res = {'ret': 0, 'data': None}
         movie_collection = mongo.mdb.movie
         movie = mongo.mdb.movie.find_one(nosql, fields)

@@ -121,7 +121,7 @@ def start_scrapy(threadName, homepage, home_url):
     logger.info('线程%s执行完毕' % threadName)
     thread_end_time = time.time()
     speed_time = thread_end_time - thread_start_time
-    logger.info('线程%s执行时间' % speed_time)
+    logger.info('线程%s执行时间:%s' % (threadName,speed_time))
     global thread_nums
     thread_nums -= 1
     
