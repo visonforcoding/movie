@@ -5,7 +5,7 @@
         </el-row>
         <el-row type="flex" justify="center">
             <el-col :span="11">
-                <el-input v-model="input" @keyup.native.enter="handSearch" placeholder="请输入内容">
+                <el-input v-model="input" @keyup.native.enter="handSearch" placeholder="请输入想搜索的电影">
                 </el-input>
             </el-col>
         </el-row>
