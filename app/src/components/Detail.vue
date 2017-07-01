@@ -85,7 +85,7 @@ export default {
       this.loading = true
       var self = this;
       setTimeout(function () {
-        self.$http.get('http://127.0.0.1:5000/detail/' + self.$route.params.query).then(function (res) {
+        self.$http.get(self.prd_config.API_URL+'/detail/' + self.$route.params.query).then(function (res) {
           if (res) {
             var res_obj = null;
             res_obj = res.body.data;

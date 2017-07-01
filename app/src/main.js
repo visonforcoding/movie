@@ -10,7 +10,9 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
-
+Vue.prototype.prd_config = {
+  API_URL: 'http://127.0.0.1:5000'
+}
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
