@@ -134,3 +134,11 @@
 2017-07-02 01:38:40,599 - root.file - ERROR - 线程1读取:http://www.66ys.tv/dongzuopian/index_48.html超时
 2017-07-02 01:38:40,982 - root.file - INFO - 线程3执行完毕
 2017-07-02 01:38:40,991 - root.file - INFO - 线程3执行时间:554.302746058
+2017-07-02 01:40:50,303 - root.file - ERROR - 抓取http://www.66ys.tv/kongbupian/20100130/7772d1966a042fd29b2dd198a1256eac.html超时
+2017-07-02 01:41:23,115 - root.file - ERROR - 抓取http://www.66ys.tv/aiqingpian/20121025/23034.html超时
+2017-07-02 01:42:47,274 - root.file - INFO - 线程4执行完毕
+2017-07-02 01:42:47,309 - root.file - INFO - 线程4执行时间:800.61909008
+2017-07-02 01:42:52,741 - root.file - ERROR - 线程2读取:http://www.66ys.tv/aiqingpian/index_76.html超时
+2017-07-02 01:43:34,506 - root.file - ERROR - 线程0读取:http://www.66ys.tv/xijupian/index_78.html超时
+2017-07-02 01:44:27,652 - root.file - ERROR - 抓取http://www.66ys.tv/xijupian/20111101/2beaeb17ff5f320c3ea3aad0efdf8263.html超时
+2017-07-02 01:44:42,938 - root.file - ERROR - 线程2读取:http://www.66ys.tv/aiqingpian/index_92.html超时
