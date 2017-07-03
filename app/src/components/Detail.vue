@@ -25,7 +25,7 @@
               <a :href="cast.alt" v-for="cast in movie.casts" :key="cast">{{cast.name}} </a>
             </li>
             <li>
-              豆瓣评分:
+              豆瓣评分:{{movie.rating.average}}
               <el-rate v-model="movie_rate" disabled text-color="#ff9900" text-template="{value}">
               </el-rate>
             </li>
