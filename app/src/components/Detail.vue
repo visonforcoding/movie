@@ -26,7 +26,7 @@
             </li>
             <li>
               豆瓣评分:
-              <el-rate v-model="movie.rating.average" disabled show-text text-color="#ff9900" text-template="{value}">
+              <el-rate v-model="movie_rate" disabled text-color="#ff9900" text-template="{value}">
               </el-rate>
             </li>
             <li>
@@ -34,7 +34,7 @@
             </li>
             <li>
               下载地址:
-               <el-tag style="margin-top:5px" v-for="download_url in movie.download_url" :key="download_url">{{download_url}}</el-tag>
+              <el-tag style="margin-top:5px" v-for="download_url in movie.download_url" :key="download_url">{{download_url}}</el-tag>
             </li>
           </ul>
         </el-col>
@@ -67,6 +67,11 @@ export default {
       value4: 3.7
     }
   },
+  computed: {
+    movie_rate: function () {
+      return this.movie.rating.average / 10 * 5;
+    }
+  },
   created() {
     // 组件创建完后获取数据，
     // 此时 data 已经被 observed 了
@@ -85,7 +90,7 @@ export default {
       this.loading = true
       var self = this;
       setTimeout(function () {
-        self.$http.get(self.prd_config.API_URL+'/detail/' + self.$route.params.query).then(function (res) {
+        self.$http.get(self.prd_config.API_URL + '/detail/' + self.$route.params.query).then(function (res) {
           if (res) {
             var res_obj = null;
             res_obj = res.body.data;
