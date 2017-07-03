@@ -9,6 +9,7 @@ import random
 import logging
 from common import logger
 import json
+from datetime import datetime
 
 
 args = sys.argv
@@ -47,7 +48,8 @@ if random_doc:
         douban_subject = res_obj['subjects'][0]
         update_doc = {
             'db_match': True,
-            'db_subject': douban_subject
+            'db_subject': douban_subject,
+            'match_time': datetime.now()
         }
         movie_collection.update_one({'_id': random_doc['_id']}, {
             '$set': update_doc

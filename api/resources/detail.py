@@ -12,7 +12,8 @@ class Detail(Resource):
     def get(self, query):
         mongo = base.Mongo.getInstance()
         nosql = {'hash': query}
-        fields = {'scrapy_site': 0, 'scrapy_url': 0,'create_time':0}
+        fields = {'scrapy_site': 0, 'scrapy_url': 0,
+                  'create_time': 0, 'match_time': 0}
         res = {'ret': 0, 'data': None}
         movie_collection = mongo.mdb.movie
         movie = mongo.mdb.movie.find_one(nosql, fields)
@@ -37,7 +38,7 @@ class Detail(Resource):
                         '$set': update_doc
                     })
                     logger.info('%s匹配成功' % str(movie_title))
-                    dict.update(movie,update_doc)
+                    dict.update(movie, update_doc)
             del movie['_id']
             res['data'] = movie
         else:

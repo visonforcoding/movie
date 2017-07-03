@@ -26,6 +26,9 @@ class Index(Resource):
             for doc in cursor:
                 doc['create_time'] = doc['create_time'].strftime(
                     '%Y-%m-%d %H:%M:%S')
+                if 'match_time' in doc:
+                    doc['match_time'] = doc['match_time'].strftime(
+                    '%Y-%m-%d %H:%M:%S')
                 movies.append(doc)
         return movies
 
@@ -38,11 +41,14 @@ class Index(Resource):
         fields = {'_id': 0, 'scrapy_site': 0,
                   'scrapy_url': 0}
         cursor = mongo.mdb.movie.find(
-            nosql, fields).sort([('db_subject.rating.average',-1),('create_time', -1)]).limit(5)
+            nosql, fields).sort([('db_subject.rating.average',-1),('match_time',-1),('create_time', -1)]).limit(5)
         movies = []
         if cursor:
             for doc in cursor:
                 doc['create_time'] = doc['create_time'].strftime(
                     '%Y-%m-%d %H:%M:%S')
+                if 'match_time' in doc:
+                    doc['match_time'] = doc['match_time'].strftime(
+                    '%Y-%m-%d %H:%M:%S')    
                 movies.append(doc)
         return movies

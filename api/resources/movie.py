@@ -12,7 +12,7 @@ class Movie(Resource):
             {'db_subject.title': {'$regex': '^%s' % query}},
         ]}
         fields = {'_id': 0, 'scrapy_site': 0,
-                  'scrapy_url': 0, 'create_time': 0}
+                  'scrapy_url': 0, 'create_time': 0,'match_time':0}
         res = {'ret': 0, 'data': None}
         cursor = mongo.mdb.movie.find(nosql, fields).limit(10)
         movies = []

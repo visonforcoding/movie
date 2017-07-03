@@ -25,7 +25,9 @@
                     <li>豆瓣好评</li>
                     <li v-for="ratingMovie in rating_movies" :key="ratingMovie">
                         <router-link v-bind:to="{name:'detail',params:{ query:ratingMovie.hash}}">
-                        <img style="width:40px;" v-bind:src="ratingMovie.db_subject.images.small"> {{ratingMovie.title}}
+                            <img style="width:40px;" v-bind:src="ratingMovie.db_subject.images.small"> 
+                            <span v-for="genre in ratingMovie.db_subject.genres" :key="genre">[{{genre}}] </span>
+                            {{ratingMovie.db_subject.title}}
                         </router-link>
                     </li>
                 </ul>
